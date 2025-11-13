@@ -2,6 +2,8 @@ from langchain_core.prompts import PromptTemplate
 from langchain_openai import ChatOpenAI
 from langchain_ollama import ChatOllama
 from langchain_tavily import TavilySearch
+from typing import List
+from pydantic import BaseModel, Field
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -14,7 +16,11 @@ from langchain.tools import tool
 
 
 
-#############  dont need the below part because we are going to use the langchai_tavily library instead of our custom tool #### TEST BLOCK
+
+
+
+
+#############  dont need the below part because we are going to use the langchain_tavily library...."TavilySearch()", instead of our custom tool #### TEST BLOCK
 # from tavily import TavilyClient
 # tavily = TavilyClient()
 
@@ -34,10 +40,22 @@ from langchain.tools import tool
 
 
 
+
+ 
+class Source(BaseModel):
+    """Schema for a source used by the agent."""
+    url: str = Field(description="The url of the source")
+ 
+
+class AgentResponse(BaseModel):
+    """Schema for the agent response with answer and sources"""
+    answer: str = Field(description="The agent's answer to the query")
+    sources: list[Source] = Field(default_factory=list, description="The list of sources used by the agent to generate the answer")
+
 llm = ChatOpenAI(model="gpt-5", temperature=0.0)
 # llm = ChatOllama(model="gpt-oss:20b", temperature=0.0)
 tools = [TavilySearch()]
-agent = create_agent(llm, tools)
+agent = create_agent(llm, tools, response_format=AgentResponse)
 
 
 
