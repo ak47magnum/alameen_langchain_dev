@@ -209,22 +209,181 @@
 
 
 
-########################################################################################################
+############################################## practise exercises for python #########################################
 
 
-from dotenv import load_dotenv
-import os
-load_dotenv()
+# from dotenv import load_dotenv
+# import os
+# load_dotenv()
 
 
-keys = os.environ["GROQ_API_KEY"] = "izaHj6rwWGdyb3FYGydjWyUCqR57ec"
-print(keys)
+# keys = os.environ["GROQ_API_KEY"] = "izaHj6rwWGdyb3FYGydjWyUCqR57ec"
+# print(keys)
 
-cpu = os.cpu_count()
-print(cpu)
-print(os.curdir)
-print(os.listdir())
-print(os.getlogin())
+# cpu = os.cpu_count()
+# print(cpu)
+# print(os.curdir)
+# print(os.listdir())
+# print(os.getlogin())
 
 
 
+############################################## practise exercises for python #########################################
+
+
+# words: list[str] = ["hello", "world", "this", "is", "a", "list", "of", "words"]
+
+# for index, word in enumerate(words):
+#     print(f"Word {index} is {word}")
+
+# for word in enumerate(words):
+#     print(word)
+
+
+# for word in enumerate(words):
+#     print(word)
+
+    
+
+# for word in words:
+#     if len(word)> 2:
+#         print(word)
+
+# for word in words:
+#     print(words.index(word), word)
+
+# new_dict = {word: len(word) for word in words if len(word)}
+# print(new_dict)
+
+############################################## practise exercises for python #########################################
+
+
+# from pathlib import Path
+
+# p = Path("D:\PODCAST")
+# print(p.exists())
+# print(p.is_dir())
+# print(p.is_file())
+# print(p.name)
+# print(p.parent)
+# print(p.stem)
+# print(p.suffix)   
+# print(p.resolve())
+
+# for x in p.iterdir():
+#     print(x.name)
+
+# for y in p.glob("*.jpg"):
+#     print(y.name)
+#     # print(y.with_suffix(".jpg"))
+#     y.rename(y.with_suffix(".jpeg"))
+
+
+
+
+############################################## practise exercises for python #########################################
+
+
+
+# def list_words(words: list[str]) -> None:
+#     for i, word in enumerate(words):
+#         print(i, word)
+
+# words: list[str] = ["hello", "world", "this", "is", "a", "list", "of", "words"]
+# # list_words(words)
+
+
+
+
+# copy_list_words = list_words  ## a function can be assigned to a variable for refferal jus like any other object in python
+# # copy_list_words(words)
+
+############################################## practise exercises for python #########################################
+
+# words: list[str] = ["hello", "world", "this", "is", "a", "list", "of", "words"]
+# class ListWords:
+#     def __call__(self, words: list[str]) -> None:  ### This is a dunder function in python where the object can be called like a function
+#         for i, word in enumerate(words):
+#             print(i, word)
+
+# list_words = ListWords()   ### This is a dunder function being called 
+# list_words(words)
+
+
+
+############################################## practise exercises for python #########################################
+
+# words: list[str] = ["hello", "world", "this", "is", "a", "list", "of", "words"]
+
+
+# class ListWords:
+#     def transform(self, words: list[str]) -> None:
+        
+#         return {i: word for i, word in enumerate(words)}
+
+# class DoubleWords:
+#     def transform(self, words: list[str]) -> list[str]:
+#         for i, word in enumerate(words):
+#             # print(i, word)
+#             return [word * 2 for word in words]
+
+
+
+# def transform(transform: ListWords, words: list[str]) -> None:
+#     new_words = transform.transform(words)
+#     print(new_words)
+
+
+# word_changer = ListWords()
+# transform(word_changer, words)
+
+# word_doubler = DoubleWords()
+# transform(word_doubler, words)
+
+
+####### Summary for above code.#######
+# """Yes — the parameter:
+
+# def transform(transform: ListWords, words: list[str]) -> None:
+
+
+# does NOT need to be a ListWords object.
+
+# It can be any class, as long as it has a method called:
+
+# transform(self, words)
+
+
+# That’s the only requirement.
+
+# So this works:
+
+# ListWords class ✔️ (has transform)
+
+# DoubleWords class ✔️ (has transform)
+
+# Any new class you create ✔️ (as long as it defines transform)
+
+# This pattern is a classic design approach.
+
+# """
+
+
+
+############################################## practise exercises for python #########################################
+
+
+from datetime import datetime, timedelta
+
+# current_date = datetime.now()
+# print(current_date)
+# print(current_date.year)
+# print(current_date.month)
+# print(current_date.day)
+# print(current_date.hour)
+# print(current_date.minute)
+# print(current_date.second)
+# print(current_date.microsecond)     
+# 
+print(timedelta(seconds=600))  
+print(datetime.now().year )

@@ -1,4 +1,4 @@
-from langchain_core.prompts import PromptTemplate
+
 from langchain_openai import ChatOpenAI
 from langchain_ollama import ChatOllama
 from langchain_tavily import TavilySearch
@@ -14,16 +14,10 @@ import os
 open_ai_key = os.environ.get("OPENAI_API_KEY")
 tavily_api_key = os.environ.get("TAVILY_API_KEY")
 
-from langchain.agents import create_agent
-from langchain_core.messages import AIMessage, HumanMessage
-from langchain.tools import tool
 
 
 
-
-
-
-llm = ChatOpenAI(model="gpt-4", temperature=0.0, openai_api_key=open_ai_key)
+llm = ChatOpenAI(model="gpt-4", temperature=0.0, openai_api_key=open_ai_key)   ## As a note... ChatOllama() does not work with react agent...Yet!!!
 tools = [TavilySearch(tavily_api_key=tavily_api_key)]
 react_prompt = hub.pull("hwchase17/react")
 agent = create_react_agent(llm, tools, prompt=react_prompt)
@@ -34,7 +28,8 @@ chain = agent_executor
 
 def main():
     print("Hello Langchain!")
-    result = chain.invoke(input={"input": "who is elon musk in three sentences?"})  
+    # result = chain.invoke(input={"input": "who is elon musk in three sentences?"})  
+    result = chain.invoke(input={"input": input("Enter your query: ")})  
     print(result)
 if __name__ == "__main__":  
     main()
