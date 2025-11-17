@@ -29,7 +29,7 @@ chain = agent_executor
 def main():
     print("Hello Langchain!")
     # result = chain.invoke(input={"input": "who is elon musk in three sentences?"})  
-    result = chain.invoke(input={"input": input("Enter your query: ")})  
+    result = chain.invoke(input={"input": input("Enter your query: ")})  ## Using the "input()" function to allow for dynamic user input
     print(result)
 if __name__ == "__main__":  
     main()
