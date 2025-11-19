@@ -359,17 +359,34 @@
 ############################################## practise exercises for python #########################################
 
 
-from datetime import datetime, timedelta
+# from datetime import datetime, timedelta
 
-# current_date = datetime.now()
-# print(current_date)
-# print(current_date.year)
-# print(current_date.month)
-# print(current_date.day)
-# print(current_date.hour)
-# print(current_date.minute)
-# print(current_date.second)
-# print(current_date.microsecond)
-#
-print(timedelta(seconds=600))
-print(datetime.now().year)
+# # current_date = datetime.now()
+# # print(current_date)
+# # print(current_date.year)
+# # print(current_date.month)
+# # print(current_date.day)
+# # print(current_date.hour)
+# # print(current_date.minute)
+# # print(current_date.second)
+# # print(current_date.microsecond)
+# #
+# print(timedelta(seconds=600))
+# print(datetime.now().year)
+
+
+#####################################
+
+import json
+r ={
+  "input": "find three listings for a 2 bedroom flat in the wuse area of abuja  ",
+  "output": "{\"answer\": \"1. A 2 bedroom flat in Wuse2 District Abuja listed on propertypro.ng for ₦ 7,000,000/year. [source](https://propertypro.ng/property-for-rent/flat-apartment/in/abuja/wuse-2/2-bedroom) 2. A 2 bedroom flat in Wuse Zone 6 Wuse Abuja Phase 1 listed on privateproperty.ng for ₦1400000. [source](https://privateproperty.ng/listings/2-bedroom-flat-apartment-for-rent-wuse-zone-6-wuse-abuja-phase-1-MY18203) 3. A 2 bedroom flat in Wuse 2, Abuja listed on nigeriapropertycentre.com, price not mentioned. [source](https://nigeriapropertycentre.com/for-rent/flats-apartments/abuja/wuse-2/showtype)\", \"sources\": [{\"source_url\": \"https://propertypro.ng/property-for-rent/flat-apartment/in/abuja/wuse-2/2-bedroom\"}, {\"source_url\": \"https://privateproperty.ng/listings/2-bedroom-flat-apartment-for-rent-wuse-zone-6-wuse-abuja-phase-1-MY18203\"}, {\"source_url\": \"https://nigeriapropertycentre.com/for-rent/flats-apartments/abuja/wuse-2/showtype\"}]}"
+}
+
+
+s = json.loads(r["output"]) 
+
+# print(len(s["sources"]))
+
+for i, j in enumerate(s["sources"]):
+    print(i, j["source_url"])
