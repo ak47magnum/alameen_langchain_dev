@@ -375,18 +375,72 @@
 # print(datetime.now().year)
 
 
-#####################################
+############################################## practise exercises for python #########################################
 
-import json
-r ={
-  "input": "find three listings for a 2 bedroom flat in the wuse area of abuja  ",
-  "output": "{\"answer\": \"1. A 2 bedroom flat in Wuse2 District Abuja listed on propertypro.ng for ₦ 7,000,000/year. [source](https://propertypro.ng/property-for-rent/flat-apartment/in/abuja/wuse-2/2-bedroom) 2. A 2 bedroom flat in Wuse Zone 6 Wuse Abuja Phase 1 listed on privateproperty.ng for ₦1400000. [source](https://privateproperty.ng/listings/2-bedroom-flat-apartment-for-rent-wuse-zone-6-wuse-abuja-phase-1-MY18203) 3. A 2 bedroom flat in Wuse 2, Abuja listed on nigeriapropertycentre.com, price not mentioned. [source](https://nigeriapropertycentre.com/for-rent/flats-apartments/abuja/wuse-2/showtype)\", \"sources\": [{\"source_url\": \"https://propertypro.ng/property-for-rent/flat-apartment/in/abuja/wuse-2/2-bedroom\"}, {\"source_url\": \"https://privateproperty.ng/listings/2-bedroom-flat-apartment-for-rent-wuse-zone-6-wuse-abuja-phase-1-MY18203\"}, {\"source_url\": \"https://nigeriapropertycentre.com/for-rent/flats-apartments/abuja/wuse-2/showtype\"}]}"
-}
+# import json
+# r ={
+#   "input": "find three listings for a 2 bedroom flat in the wuse area of abuja  ",
+#   "output": "{\"answer\": \"1. A 2 bedroom flat in Wuse2 District Abuja listed on propertypro.ng for ₦ 7,000,000/year. [source](https://propertypro.ng/property-for-rent/flat-apartment/in/abuja/wuse-2/2-bedroom) 2. A 2 bedroom flat in Wuse Zone 6 Wuse Abuja Phase 1 listed on privateproperty.ng for ₦1400000. [source](https://privateproperty.ng/listings/2-bedroom-flat-apartment-for-rent-wuse-zone-6-wuse-abuja-phase-1-MY18203) 3. A 2 bedroom flat in Wuse 2, Abuja listed on nigeriapropertycentre.com, price not mentioned. [source](https://nigeriapropertycentre.com/for-rent/flats-apartments/abuja/wuse-2/showtype)\", \"sources\": [{\"source_url\": \"https://propertypro.ng/property-for-rent/flat-apartment/in/abuja/wuse-2/2-bedroom\"}, {\"source_url\": \"https://privateproperty.ng/listings/2-bedroom-flat-apartment-for-rent-wuse-zone-6-wuse-abuja-phase-1-MY18203\"}, {\"source_url\": \"https://nigeriapropertycentre.com/for-rent/flats-apartments/abuja/wuse-2/showtype\"}]}"
+# }
 
 
-s = json.loads(r["output"]) 
+# s = json.loads(r["output"]) 
 
-# print(len(s["sources"]))
+# # print(len(s["sources"]))
 
-for i, j in enumerate(s["sources"]):
-    print(i, j["source_url"])
+# for i, j in enumerate(s["sources"]):
+#     print(i, j["source_url"])
+
+
+############################################## practise exercises for python #########################################
+
+# from dotenv import load_dotenv
+# load_dotenv()
+
+# from openai import OpenAI
+# from pydantic import BaseModel
+
+# client = OpenAI()
+
+# class Step(BaseModel):
+#     explanation: str
+#     output: str
+
+# class MathReasoning(BaseModel):
+#     steps: list[Step]
+#     final_answer: str
+
+# response = client.responses.parse(
+#     model="gpt-4o-2024-08-06",
+#     input=[
+#         {
+#             "role": "system",
+#             "content": "You are a helpful math tutor. Guide the user through the solution step by step.",
+#         },
+#         {"role": "user", "content": "how can I solve 8x + 7 = -23"},
+#     ],
+#     text_format=MathReasoning,
+# )
+
+# math_reasoning = response.output_parsed
+# print(math_reasoning)
+
+
+
+
+
+
+############################################## practise exercises for python #########################################
+
+# from typing import Optional
+
+
+def get_email(first_name: str, last_name: str, age: int|None = None):
+    mail = f"{first_name}.{last_name}@yahoo.com"
+    return f"Your email is {mail} and your age is {age}"
+
+
+
+mm = get_email(first_name="mom", last_name="manu", age=32)
+
+print(mm)
