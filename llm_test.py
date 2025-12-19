@@ -1,10 +1,11 @@
-from dotenv import load_dotenv
-from langchain.tools import tool
-from langchain_core.prompts import PromptTemplate
-from langchain_core.tools import render_text_description 
-from langchain_openai import ChatOpenAI
+# from dotenv import load_dotenv
+# from langchain.tools import tool
+# from langchain_core.prompts import PromptTemplate
+# from langchain_core.tools import render_text_description 
+# from langchain_openai import ChatOpenAI
+# import requests
 
-load_dotenv()
+# load_dotenv()
 
 
 
@@ -489,5 +490,389 @@ load_dotenv()
 # y = json.loads(x["output"])
 # print(y["sources"])
 
-###############################################################################
+####################################################################################################
+####################################################################################################
+####################################################################################################
+####################################################################################################
+####################################################################################################
+####################################################################################################
+
+
+#### THIS SECTION IS FOR KACE API TO CREATE TICKETS ##############################################
+
+# import requests
+# import json
+# import warnings  # Import warnings module to suppress InsecureRequestWarning
+# from dotenv import load_dotenv
+# import os
+
+# load_dotenv()
+
+# # Suppress only the InsecureRequestWarning from urllib3 needed for verify=False
+# # Use the standard urllib3 import path
+# from urllib3.exceptions import InsecureRequestWarning
+# warnings.simplefilter('ignore', InsecureRequestWarning)
+
+
+# # Define your KACE SMA appliance URL
+# HOST = "support.julius-berger.com"  # e.g., "k1000.yourcompany.com"
+# # Define the API base URL for Service Desk
+# BASE_URL = f"http://{HOST}/api/service_desk"
+# # Define the AMS base URL for login
+# AMS_BASE_URL = f"http://{HOST}/ams/shared/api/security"
+
+# # Admin credentials
+# USERNAME = os.getenv("KACE_USER_NAME")
+# PASSWORD = os.getenv("KACE_PASSWORD")
+
+
+
+
+# CUSTOM_7_CONSULTANTS = ["Unassigned", "Jayalakshmi Nagarajan - jayalakshmi.n@aakit.com  - AMS Manager", "Prachiti Kothare - prachiti.kothare@aakit.com - Dispatcher", 
+#                         "Atul Arsekar - atul.arsekar@aakit.com - MM Consultant", "Rahul Khamkar	-  rahul.khamkar@aakit.com - MM Consultant", 
+#                         "Wasimuddin Sayed - wasimuddin.sayed@aakit.com - MM/TM Consultant", "Divesh Mistry  - divesh.mistry@aakit.com - FI Consultant", 
+#                         "Akshay Zirmirkar - akshay.zirmirkar@aakit.com - FI Consultant", "Amey Mule - amey.mule@aakit.com - FI Consultant", 
+#                         "Suhas Patil - suhas.patil@aakit.com - EWM Consultant", "Pratap Jagadam - pratap.jagadam@aakit.com - EWM Consultant", 
+#                         "Tarka Karwadkar - tarka.karwadkar@aakit.com - Technical Lead", "Ashish Patil - ashish.patil@aakit.com	- Technical Lead", 
+#                         "Shardul Tendulkar - shardul.tendulkar@aakit.com	- Technical Lead", "Sitesh Sawant - sitesh.sawant@aakit.com	- Technical Consultant", 
+#                         "Asmitha Pamuru - asmitha.pamuru@aakit.com - Technical Consultant", "Niket Patil - niket.patil@aakit.com - BASIS Consultant"
+# ]
+
+
+# CUSTOM_6_MODULES = ["Unassigned", "SAP-ABAP", "SAP-AUTHORIZATION", "SAP-BASIS", "SAP-EWM, SAP-FI", "SAP-GENERAL", "SAP-MM", "SAP-SD, JOE", "SAM", "TACA",""
+#                     " Clubhouse Software", "Travel DB", "Palette CAD", "Lucanet", "Kuhnle", "Precast", "Iron Bending", "IDcard Asure", "Paula", "Julian", 
+#                     "WMS", "Sharepoint"]
+
+# CUSTOM_5_DEPARTMENT = ["Finance", "NSG", "PED", "PLS", "PMO", "TM", "ZAMS/HYPERCARE/IT/PMO"]
+
+# # Ensure this is a list of dictionaries, mapping name to ID
+# TICKET_OWNER = [{"Kabir, Amin": "11411"}, {"Eguwe, Ewomazino": "12265"}]
+
+
+# def login(host, username, password):
+#     """Authenticates with the KACE SMA and returns the session cookies."""
+
+#     # Corrected URL construction: Append only '/login' to the base host URL
+#     url = f"{host}/login"
+#     headers = {'Content-Type': 'application/json', 'Accept': 'application/json', 'x-kace-api-version': '8'}
+#     payload = {
+#         "userName": username,
+#         "password": password
+#     }
+
+#     # Added verify=False to bypass SSL certificate verification.
+#     # WARNING: This disables security checks. Only use if you trust the server
+#     # or understand the security implications.
+#     response = requests.post(url, headers=headers, data=json.dumps(payload), verify=False)
+#     response.raise_for_status()
+
+
+#     # # --- DEBUGGING: Print login response details to find CSRF token ---
+#     # print("\n--- Login Response ---")
+#     # print(f"Status Code: {response.status_code}")
+#     # print("Headers:")
+#     # # Use dict() to convert CaseInsensitiveDict for JSON serialization
+#     # print(json.dumps(dict(response.headers), indent=2))
+#     # print("Cookies:")
+#     # # Use requests.utils helper function
+#     # print(json.dumps(requests.utils.dict_from_cookiejar(response.cookies), indent=2))
+#     # try:
+#     #     print("Body (JSON):")
+#     #     print(json.dumps(response.json(), indent=2))
+#     # except json.JSONDecodeError:
+#     #     print("Body (Text):")
+#     #     print(response.text)
+#     # print("--- End Login Response ---\n")
+#     # # --- End Debugging ---
+
+#     # We will extract the actual token later based on the debug output
+#     # For now, just return the cookies
+#     return response.cookies
+
+
+# def get_tickets_in_queue(base_url, cookies, queue_id):
+#     """Retrieves a list of tickets in a specific queue."""
+
+#     # Base endpoint URL
+#     url = f"{base_url}/tickets"
+#     # Parameters dictionary - requests will handle URL encoding
+#     params = {
+#         'filtering': f'hd_queue_id eq {queue_id}'
+#     }
+
+#     print(f"Attempting to fetch tickets from URL: {url} with params: {params}")  # Updated print
+
+#     headers = {
+#         'Accept': 'application/json',
+#         'Content-Type': 'application/json',
+#         'x-kace-api-version': '5'   # Check if this header is still required/correct for your KACE version
+#         # We will add the CSRF token header here later
+#     }
+
+#     # Added verify=False to bypass SSL certificate verification.
+#     # WARNING: This disables security checks. Only use if you trust the server
+#     # or understand the security implications.
+#     # Pass params dictionary to requests.get
+#     try:
+#         response = requests.get(url, headers=headers, cookies=cookies, params=params, verify=False)
+#         response.raise_for_status()
+#         print(response.url)
+#         return response.json()
+#     except requests.exceptions.HTTPError as e:
+#         print(f"HTTP Error: {e}")
+#         print(f"Status Code: {e.response.status_code if e.response else 'N/A'}")
+#         print("Response Headers:")
+#         print(json.dumps(dict(e.response.headers) if e.response else {}, indent=2))
+#         try:
+#             print("Response Body:")
+#             print(e.response.text if e.response else 'N/A')
+#         except:
+#             print("Could not decode response body.")
+#         raise  # Re-raise the exception to propagate it
+#     except requests.exceptions.RequestException as e:
+#         print(f"Request Error: {e}")
+#         raise
+   
+
+# def get_ticket_template(base_url, cookies, queue_id):
+#     """Fetch the ticket template for a specific Service Desk queue."""
+#     url = f"{base_url}/queues/{queue_id}/ticket_template"
+
+#     headers = {
+#         'Accept': 'application/json',
+#         'Content-Type': 'application/json',
+#         'x-kace-api-version': '5'
+#     }
+
+#     try:
+#         print(f"Fetching ticket template from: {url}")
+#         response = requests.get(url, headers=headers, cookies=cookies, verify=False)
+#         response.raise_for_status()
+#         print("Ticket template fetched successfully.")
+#         return response.json()
+
+#     except requests.exceptions.HTTPError as e:
+#         print(f"HTTP Error: {e}")
+#         if e.response:
+#             print("Status code:", e.response.status_code)
+#             print("Response:", e.response.text)
+#         raise
+#     except requests.exceptions.RequestException as e:
+#         print(f"Request Error: {e}")
+#         raise
+
+
+
+# def get_queue_fields(base_url, cookies, queue_id):
+#     url = f"{base_url}/tickets"
+#     # Parameters dictionary - requests will handle URL encoding
+
+#     print(f"Attempting to fetch tickets from URL: {url} with queue_ID: {queue_id}")  # Updated print
+
+#     headers = {
+#         'Accept': 'application/json',
+#         'Content-Type': 'application/json',
+#         'x-kace-api-version': '5' # Check if this header is still required/correct for your KACE version
+#         # We will add the CSRF token header here later
+#     }
+
+#     response = requests.get(url=url, headers=headers, cookies=cookies)
+#     response.raise_for_status()
+#     return response
+
+
+# def create_incident(base_url, cookies, queue_id):
+#     url = f"{base_url}/tickets"
+#     headers = {
+#         'Accept': 'application/json',
+#         'Content-Type': 'application/json',
+#         'x-kace-api-version': '5'  # Check if this header is still required/correct for your KACE version
+#         # We will add the CSRF token header here later
+#     }
+
+
+#     ticket_data = {
+#         "Tickets": [
+#             {
+#                 "hd_queue_id": queue_id,
+#                 "summary": "Trouble shooting level 1",
+#                 "title": "Trouble shooting level 2",
+#                 "submitter": { "id": 10 },
+#                 "priority": { "id": 117 },
+#                 "owner" : {"id": 11411 },
+#                 "status": { "id": 242 }
+#             }
+#         ]
+#     }
+
+#     # payload = json.dumps(ticket_data)
+#     # print(type(payload))
+#     # response = requests.post(url=url, headers=headers, data=payload, cookies=cookies)
+#     # response.raise_for_status()
+
+#     payload = json.dumps(ticket_data)
+#     print("Submitting:", payload)
+
+#     # print("Ticket creation response:")
+#     # print(json.dumps(response.json(), indent=2))
+
+#     try:
+#         response = requests.post(url=url, headers=headers, data=payload, cookies=cookies, verify=False)
+#         response.raise_for_status()
+#         print("Ticket created successfully.")
+#         return response.json()
+#     except requests.exceptions.HTTPError as e:
+#         print("HTTP Error:", e)
+#         print("Status Code:", e.response.status_code)
+#         print("Response Text:", e.response.text)
+#         raise
+
+# ## >👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈
+# ## >👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈
+# ## >👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈
+# ## >👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈
+# ## >👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈
+# ## >👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈👈
+
+
+# def main():
+#     """Main function to log in and get tickets in a queue."""
+
+#     try:
+#         session_cookies = login(AMS_BASE_URL, USERNAME, PASSWORD)  ####################### FUNCTION WORKS !!!!!
+#         print("Logged in successfully.\n")
+
+#         target_queue_id = "36"  # Replace with the actual queue ID you want to query  eg, (27: it_requisition) or (36: it_requisition_test)
+
+#         tickets = get_tickets_in_queue(BASE_URL, session_cookies, target_queue_id)    ###################### FUNCTION WORKS !!!!!
+#         # print(tickets["Tickets"])
+#         # print(f"Number of tickets in QUEUE: =  {len(tickets)} \n\n")
+#         print(f"Number of tickets in QUEUE: =  {len(tickets['Tickets'])}\n")
+#         for ticket in tickets["Tickets"]:
+#             print(ticket, "\n") #adjust keys as needed
+
+#         # print(f"Tickets in Queue {target_queue_id}:")
+#         # for ticket in tickets:
+#         #     print(f"  - Ticket ID: {ticket['ID']}, Title: {ticket['Title']}") #adjust keys as needed
+#         #     # print(ticket) #adjust keys as needed
+
+#         fields = get_queue_fields(BASE_URL, cookies=session_cookies, queue_id=target_queue_id)  ################ FUNCTION WORKS !!!!!
+#         field_data = json.dumps(fields.text)
+#         # print(fields.text)
+#         # print(field_data["Fields"])
+#         # for item in field_data:
+#         #     print(item["jsonKey"])
+#         # print(type(field_data))
+
+#         create_ticket = create_incident(BASE_URL, cookies=session_cookies, queue_id=target_queue_id) ### FUNCTION NOT WORKING ********** !!!!!
+#         print("Ticket  created!!!!!")
+
+
+
+
+#         # template =  get_ticket_template(BASE_URL, cookies=session_cookies, queue_id=target_queue_id)
+#         # print(template)
+
+#     except requests.exceptions.HTTPError as e:
+#         print(f"HTTP Error: {e}")
+#         print(f"Response content: {e.response.text if e.response else 'No response'}")
+#     except Exception as e:
+#         print(f"An error occurred: {e}")
+#         import traceback
+#         traceback.print_exc()  # Print the full traceback for other exceptions
+
+
+# if __name__ == "__main__":
+#     main()
+
+
+
+###########################################################################################################
+###########################################################################################################
+###########################################################################################################
+###########################################################################################################
+###########################################################################################################
+###########################################################################################################
+
+# from dotenv import load_dotenv
+# from langchain.tools import tool
+# from langchain_core.prompts import PromptTemplate
+# from langchain_core.tools import render_text_description 
+# from langchain_openai import ChatOpenAI
+# # from langchain_anthropic import ChatAnthropic
+
+
+# load_dotenv()
+
+
+# from langchain_core.prompts import ChatPromptTemplate
+# from langchain_core.runnables import ConfigurableField
+# from langchain_core.tools import tool
+# from langchain_classic.agents import AgentExecutor, create_tool_calling_agent
+# from langchain_tavily import TavilySearch  ## This is the latest langchain search tool for using tavily
+
+
+
+
+
+# @tool
+# def multiply(x: float, y: float) -> float:
+#     """Multiply 'x' times 'y'."""
+#     return x * y
+
+# @tool
+# def exponentiate(x: float, y: float) -> float:
+#     """Raise 'x' to the 'y'."""
+#     return x**y
+
+# @tool
+# def add(x: float, y: float) -> float:
+#     """Add 'x' and 'y'."""
+#     return x + y
+
+# @tool
+# def subtract(x: float, y: float) -> float:
+#     """Subtract 'y' from 'x'."""
+#     return x - y
+
+
+
+
+# prompt = ChatPromptTemplate.from_messages([
+#     ("system", "you're a helpful assistant"), 
+#     ("human", "{input}"), 
+#     ("placeholder", "{agent_scratchpad}"),
+# ])
+
+# tools = [multiply, exponentiate, add, subtract, TavilySearch(tavily_api_key="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")]
+
+
+# # llm = ChatAnthropic(model="claude-sonnet-4-5-20250929", temperature=0)  ############ I need credits to use anthropic API *****************
+
+# # llm = ChatOpenAI(model="gpt-5", temperature=0) ## real slow and expensive  - (support tool calling)
+# # llm = ChatOpenAI(model="gpt-4-turbo", temperature=0) ## Quicker but still expensive - (support tool calling)
+# # llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0) ## Quicker and cheaper - (support tool calling)
+# # llm = ChatOpenAI(model="gpt-4.1-mini", temperature=0) ## Also Quicker and cheaper - (support tool calling)
+# llm = ChatOpenAI(model="gpt-4o-mini-2024-07-18", temperature=0) ## Also Quicker and cheaper - (support tool calling). I like this one!!
+
+
+# agent = create_tool_calling_agent(llm, tools, prompt)
+# agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
+
+# # agent_executor.invoke({"input": "what's 3 plus 5 raised to the 2.743. also what's 17.24 - 918.1241", }) ## uses calculation tools
+# # agent_executor.invoke({"input": "get me a list of three 2 bedroom apartments for sale on queensway in london", }) ## Uses TavilySearch() tool
+# res = agent_executor.invoke({"input": "What is the weather like in london uk and in minsk \
+#                        belarus today? And what is the difference between the two in celsius?", }) ## Uses TavilySearch() tool
+
+# # print(res)
+
+
+
+#############################################################################################################
+#############################################################################################################
+#############################################################################################################
+#############################################################################################################
+#############################################################################################################
+
+
 
